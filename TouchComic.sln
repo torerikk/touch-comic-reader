@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TouchComic", "TouchComic\TouchComic.csproj", "{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F3118009-2C54-447F-AB2F-D5AFBFE5B9BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A8462BCC-E221-45FA-B950-457038294684}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Debug|Any CPU.Build.0 = Debug|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Debug|x86.ActiveCfg = Debug|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Debug|x86.Build.0 = Debug|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Release|Any CPU.ActiveCfg = Release|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Release|Mixed Platforms.Build.0 = Release|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Release|x86.ActiveCfg = Release|x86
+		{E0C15FBE-9A5E-480C-9CC4-53E9E5285DF7}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

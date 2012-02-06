@@ -1,0 +1,72 @@
+﻿<Window
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:vm="clr-namespace:TouchComic.ViewModel"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" x:Class="TouchComic.Windows.MainWindow"
+		Title="Touch Comic Reader" Height="350" Width="525" x:Name="wndMain" UseLayoutRounding="True" Icon="/TouchComic;component/Resources/Hand.ico" mc:Ignorable="d" SnapsToDevicePixels="True">
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+	<Window.InputBindings>
+		<KeyBinding Gesture="CTRL+O" Command="{Binding Path=OpenFile}" />
+		<KeyBinding Gesture="CTRL+SHIFT+O" Command="{Binding Path=OpenList}" />
+		<KeyBinding Key="PageUp" Command="{Binding Path=PrevPage}"/>
+		<KeyBinding Key="PageDown" Command="{Binding Path=NextPage}"/>
+		<KeyBinding Key="F11"  Command="{Binding ElementName=wndMain, Path=FullScreen}" />
+	</Window.InputBindings>
+	<DockPanel>
+		<Menu x:Name="mnuMain" DockPanel.Dock="Top">
+			<MenuItem x:Name="mniFile" Header="_File">
+				<MenuItem x:Name="mniFileOpen" Header="_Open">
+					<MenuItem x:Name="mniFileOpenFile" Header="_File..." Command="{Binding OpenFile}" />
+					<MenuItem x:Name="mniFileOpenList" Header="Reading _List..." Command="{Binding OpenList}" />
+				</MenuItem>
+				<MenuItem x:Name="mniFileRecent" Header="Recent _Files" IsEnabled="False" />
+				<Separator />
+				<MenuItem x:Name="mniFileOptions" Header="Options..." IsEnabled="False" />
+				<Separator />
+				<MenuItem x:Name="mniFileExit" Header="_Exit" Command="{Binding Path=CloseCommand}" />
+			</MenuItem>
+			<MenuItem x:Name="mniView" Header="_View">
+				<MenuItem x:Name="mniViewToolbar" Header="_Toolbar" IsCheckable="True" IsEnabled="False" IsChecked="{Binding ShowToolbar}" />
+				<Separator/>
+				<MenuItem x:Name="mniViewRotate" Header="_Rotate" IsEnabled="False" />
+				<MenuItem x:Name="mniViewZoom" Header="_Zoom">
+					<MenuItem x:Name="mniViewZoomFit" Header="_Fit" IsChecked="True" IsEnabled="False" />
+				</MenuItem>
+				<MenuItem x:Name="mniViewFullscreen" Header="_Full Screen" InputGestureText="F11" Command="{Binding ElementName=wndMain, Path=FullScreen}" />
+				<Separator/>
+				<MenuItem x:Name="mniViewNext" Header="_Next" Command="{Binding NextPage}" InputGestureText="PageDown" />
+				<MenuItem x:Name="mniViewPrevious" Header="_Previous" Command="{Binding PrevPage}" InputGestureText="PageUp" />
+				<MenuItem x:Name="mniViewGoto" Header="_Goto page..." IsEnabled="False" />
+			</MenuItem>
+			<MenuItem x:Name="mniTools" Header="_Tools" IsEnabled="False"/>
+			<MenuItem x:Name="mniHelp" Header="_Help">
+				<MenuItem x:Name="mniHelpAbout" Header="_About TouchComic" Click="MniHelpAboutClick"/>
+			</MenuItem>
+		</Menu>
+		<ToolBar x:Name="tlbMain" Height="auto" VerticalAlignment="Top" DockPanel.Dock="Top" >
+			<Button>
+				<Image Height="32" Source="/TouchComic;Component/Resources/IconRotate_32.png" Width="32"/>
+			</Button>
+			<Button Command="{Binding ElementName=wndMain, Path=FullScreen}" ToolTip="Full Screen (F11)">
+				<Rectangle Fill="{DynamicResource FullscreenIcon}" Height="32" Width="32" />
+			</Button>
+		</ToolBar>
+		<Grid Background="Black" x:Name="grdView">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<ScrollViewer x:Name="scvScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" LayoutUpdated="scvScroll_LayoutUpdated" Focusable="False">
+				<Image x:Name="imgView" ScrollViewer.IsDeferredScrollingEnabled="True" Stretch="Uniform" Grid.Row="1" SnapsToDevicePixels="False" Grid.Column="1" Source="{Binding Path=CurrentFrame, Mode=OneWay, NotifyOnTargetUpdated=True}" TargetUpdated="imgView_TargetUpdated" MouseLeftButtonDown="imgView_MouseLeftButtonDown" MouseLeftButtonUp="imgView_MouseLeftButtonUp" />
+			</ScrollViewer>
+			<Button Grid.Column="1" Grid.Row="1" x:Name="btnRight" HorizontalAlignment="Right" Style="{StaticResource NavigationButtonLeft}"  Height="132" Width="105" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" />
+			<Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" x:Name="btnLeft"  Width="105" Height="132" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" SnapsToDevicePixels="False" Style="{StaticResource NavigationButtonRight}" />
+
+			<Border Name="toast" Width="100" Margin="0,0,30,30" VerticalAlignment="Bottom" Background="#FF333333" BorderBrush="#FF909090" BorderThickness="1" Height="25" CornerRadius="5" ClipToBounds="False" SnapsToDevicePixels="True" Opacity="0" HorizontalAlignment="Right">
+				<TextBlock Name="toastText"  Text="Page 1 of #" Foreground="#FF909090" FontSize="14" TextAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" />
+			</Border>
+		</Grid>
+	</DockPanel>
+</Window>
