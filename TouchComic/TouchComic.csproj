@@ -150,8 +150,8 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Hand.ico" />
-    <Content Include="Resources\Libs\7z_x64.dll" />
-    <Content Include="Resources\Libs\7z_x86.dll" />
+    <Content Include="Resources\Libs\x64\7z.dll" />
+    <Content Include="Resources\Libs\x86\7z.dll" />
     <Resource Include="Resources\IconRotate_24.png" />
     <Resource Include="Resources\IconRotate_32.png" />
   </ItemGroup>
@@ -162,10 +162,13 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
+	   Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="$(ProjectDir)Resources\Libs\$(Platform)\7z.dll" DestinationFolder="$(OutputPath)" ContinueOnError="true" />
+  </Target>
 </Project>

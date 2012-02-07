@@ -1,0 +1,5 @@
+syntax: regexp
+TouchComic/bin/*
+TouchComic/obj/*
+packages/*
+/*.suo
