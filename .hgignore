@@ -2,4 +2,6 @@ syntax: regexp
 TouchComic/bin/*
 TouchComic/obj/*
 packages/*
-/*.suo
+syntax: glob
+*.user
+*.suo

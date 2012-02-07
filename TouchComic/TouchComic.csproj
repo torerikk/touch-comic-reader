@@ -103,13 +103,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataAccess\ComicBookRepository.cs" />
+    <Compile Include="DataAccess\ComicInfoRepository.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="IO\File.cs" />
     <Compile Include="Model\ComicBook.cs" />
     <Compile Include="Model\ComicBookPage.cs" />
+    <Compile Include="Model\ComicInfo.cs" />
     <Compile Include="ObservableObject.cs" />
     <Compile Include="PropertySupport.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Resources\ComicInfo.cs">
+      <DependentUpon>ComicInfo.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="ViewModel\WorkspaceViewModel.cs" />
     <Compile Include="Windows\AboutWindow.xaml.cs">
@@ -146,6 +151,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\ComicInfo.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Resources\Splash.png" />
   </ItemGroup>
   <ItemGroup>
@@ -171,4 +179,9 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="$(ProjectDir)Resources\Libs\$(Platform)\7z.dll" DestinationFolder="$(OutputPath)" ContinueOnError="true" />
   </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2010/1/1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.DeltaBaseYearDayOfYear.Increment" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

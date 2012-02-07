@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("beldin.net")]
 [assembly: AssemblyProduct("TouchComic")]
-[assembly: AssemblyCopyright("Copyright © beldin.net 2009")]
+[assembly: AssemblyCopyright("Copyright © beldin.net 2010-2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,5 +35,5 @@ using System.Windows;
     // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.4")]
+[assembly: AssemblyVersion("0.2.2038.20")]
+[assembly: AssemblyFileVersion("0.2.2038.20")]

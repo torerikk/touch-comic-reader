@@ -13,6 +13,9 @@ namespace TouchComic.Model
 			Jump = 2
 		}
 
+		public ComicInfo MetaData { get; set; }
+		public bool HasMetaData { get; set; }
+
 		#region State Properties
 		private ObservableCollection<ComicBookPage> _pages = new ObservableCollection<ComicBookPage>();
 
