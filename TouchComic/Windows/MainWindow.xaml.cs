@@ -203,72 +203,72 @@ namespace TouchComic.Windows
 		private Point scrollStartPoint;
 		private Point scrollStartOffset;
 
-		protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
-		{
-			if (scvScroll.IsMouseOver)
-			{
-				// Save starting point, used later when determining 
-				//how much to scroll.
-				scrollStartPoint = e.GetPosition(this);
-				scrollStartOffset.X = scvScroll.HorizontalOffset;
-				scrollStartOffset.Y = scvScroll.VerticalOffset;
+		//protected override void OnPreviewMouseDown(MouseButtonEventArgs e)
+		//{
+		//    if (scvScroll.IsMouseOver)
+		//    {
+		//        // Save starting point, used later when determining 
+		//        //how much to scroll.
+		//        scrollStartPoint = e.GetPosition(this);
+		//        scrollStartOffset.X = scvScroll.HorizontalOffset;
+		//        scrollStartOffset.Y = scvScroll.VerticalOffset;
 
-				// Update the cursor if can scroll or not.
-				if (scvScroll.ExtentWidth > scvScroll.ViewportWidth && scvScroll.ExtentHeight > scvScroll.ViewportHeight)
-					this.Cursor = Cursors.ScrollAll;
-				else if (scvScroll.ExtentWidth > scvScroll.ViewportWidth)
-					this.Cursor = Cursors.ScrollWE;
-				else if (scvScroll.ExtentHeight > scvScroll.ViewportHeight)
-					this.Cursor = Cursors.ScrollNS;
-				else
-					this.Cursor = Cursors.Arrow;
+		//        // Update the cursor if can scroll or not.
+		//        if (scvScroll.ExtentWidth > scvScroll.ViewportWidth && scvScroll.ExtentHeight > scvScroll.ViewportHeight)
+		//            this.Cursor = Cursors.ScrollAll;
+		//        else if (scvScroll.ExtentWidth > scvScroll.ViewportWidth)
+		//            this.Cursor = Cursors.ScrollWE;
+		//        else if (scvScroll.ExtentHeight > scvScroll.ViewportHeight)
+		//            this.Cursor = Cursors.ScrollNS;
+		//        else
+		//            this.Cursor = Cursors.Arrow;
 
-				this.CaptureMouse();
-			}
+		//        this.CaptureMouse();
+		//    }
 
-			base.OnPreviewMouseDown(e);
-		}
+		//    base.OnPreviewMouseDown(e);
+		//}
 
-		protected override void OnPreviewMouseMove(MouseEventArgs e)
-		{
-			if (this.IsMouseCaptured)
-			{
-				// Get the new scroll position.
-				Point point = e.GetPosition(this);
+		//protected override void OnPreviewMouseMove(MouseEventArgs e)
+		//{
+		//    if (this.IsMouseCaptured)
+		//    {
+		//        // Get the new scroll position.
+		//        Point point = e.GetPosition(this);
 
-				// Determine the new amount to scroll.
-				Point delta = new Point(
-					(point.X > this.scrollStartPoint.X) ?
-						-(point.X - this.scrollStartPoint.X) :
-						(this.scrollStartPoint.X - point.X),
+		//        // Determine the new amount to scroll.
+		//        Point delta = new Point(
+		//            (point.X > this.scrollStartPoint.X) ?
+		//                -(point.X - this.scrollStartPoint.X) :
+		//                (this.scrollStartPoint.X - point.X),
 
-					(point.Y > this.scrollStartPoint.Y) ?
-						-(point.Y - this.scrollStartPoint.Y) :
-						(this.scrollStartPoint.Y - point.Y));
+		//            (point.Y > this.scrollStartPoint.Y) ?
+		//                -(point.Y - this.scrollStartPoint.Y) :
+		//                (this.scrollStartPoint.Y - point.Y));
 
-				// Scroll to the new position.
-				scvScroll.ScrollToHorizontalOffset(
-					this.scrollStartOffset.X + delta.X);
-				scvScroll.ScrollToVerticalOffset(
-					this.scrollStartOffset.Y + delta.Y);
-			}
+		//        // Scroll to the new position.
+		//        scvScroll.ScrollToHorizontalOffset(
+		//            this.scrollStartOffset.X + delta.X);
+		//        scvScroll.ScrollToVerticalOffset(
+		//            this.scrollStartOffset.Y + delta.Y);
+		//    }
 
-			base.OnPreviewMouseMove(e);
-		}
+		//    base.OnPreviewMouseMove(e);
+		//}
 
 
 
-		protected override void OnPreviewMouseUp(
-			MouseButtonEventArgs e)
-		{
-			if (this.IsMouseCaptured)
-			{
-				this.Cursor = Cursors.Arrow;
-				this.ReleaseMouseCapture();
-			}
+		//protected override void OnPreviewMouseUp(
+		//    MouseButtonEventArgs e)
+		//{
+		//    if (this.IsMouseCaptured)
+		//    {
+		//        this.Cursor = Cursors.Arrow;
+		//        this.ReleaseMouseCapture();
+		//    }
 
-			base.OnPreviewMouseUp(e);
-		}
+		//    base.OnPreviewMouseUp(e);
+		//}
 		// End scrolling
 
 	}

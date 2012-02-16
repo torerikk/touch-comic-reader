@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using SevenZip;
 using TouchComic.Model;
+using System.Collections.Generic;
 
 namespace TouchComic.DataAccess
 {
@@ -42,7 +44,9 @@ namespace TouchComic.DataAccess
 				// TODO: Load archive to memory stream and decompress only x next pages.
 
 				// Create pages form each image file in temp path.
-				FindFiles(_tempPath);
+				Dictionary<int, string> imageFiles = new Dictionary<int, string>();
+				FindFiles(_tempPath, ref imageFiles);
+				GetPages(imageFiles);
 			}
 			//else
 			//{
@@ -91,10 +95,10 @@ namespace TouchComic.DataAccess
 			CleanTempPath();
 		}
 
-		private void FindFiles(string path)
+		private void FindFiles(string path, ref Dictionary<int, string> imageFiles)
 		{
+			int index = 0;
 			var files = Directory.GetFiles(path);
-			var pageCounter = 0;
 			foreach (var file in files)
 			{
 				string filename = file.ToLowerInvariant();
@@ -113,18 +117,50 @@ namespace TouchComic.DataAccess
 				var ext = Path.GetExtension(filename);
 				if (ext == ".jpg" || ext == ".bmp" || ext == ".gif" || ext == ".png" || ext == ".jpeg" || ext == ".tif" || ext == ".tiff" || ext == ".jpe" || ext == ".jif" || ext == ".jfif" || ext == ".jfi")
 				{
-					_comicbook.Pages.Add(pageCounter > 6
-											 ? new ComicBookPage(file, false)
-											 : new ComicBookPage(file, true));
+					imageFiles.Add(index, file);
+					index++;
 				}
-				pageCounter++;
-				// TODO: Parse any comicrack xml file present.
 			}
 
+			// TODO: Verify that ComicRack handles cb files in this order (or how cb files with multiple dirs with files in them are handled).
 			var dirs = Directory.GetDirectories(path);
 			foreach (var dir in dirs)
 			{
-				FindFiles(dir);
+				FindFiles(dir, ref imageFiles);
+			}
+
+		}
+
+		private void GetPages(Dictionary<int, string> imageFiles)
+		{
+			int pageCounter = 0;
+			if (_comicbook.HasMetaData)
+			{
+				foreach (var pageinfo in _comicbook.MetaData.Pages)
+				{
+					string file = imageFiles.SingleOrDefault(z => z.Key == pageinfo.Image).Value;
+					if (!string.IsNullOrWhiteSpace(file))
+					{
+						_comicbook.Pages.Add(
+							pageCounter > 6
+								? new ComicBookPage(file, false) { PageType = pageinfo.Type }
+								: new ComicBookPage(file, true){ PageType = pageinfo.Type }
+						);
+						pageCounter++;
+						imageFiles.Remove(pageinfo.Image);
+					}
+				}
+
+			}
+
+			// Now handle the rest of the files in the comic
+			foreach (var file in imageFiles)
+			{
+				_comicbook.Pages.Add(
+					pageCounter > 6
+						? new ComicBookPage(file.Value, false) 
+						: new ComicBookPage(file.Value, true));
+				pageCounter++;
 			}
 
 		}
