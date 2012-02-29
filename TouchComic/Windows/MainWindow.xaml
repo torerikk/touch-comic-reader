@@ -61,8 +61,8 @@
 			<ScrollViewer x:Name="scvScroll" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" LayoutUpdated="scvScroll_LayoutUpdated" Focusable="False">
 				<Image x:Name="imgView" ScrollViewer.IsDeferredScrollingEnabled="True" Stretch="Uniform" Grid.Row="1" SnapsToDevicePixels="False" Grid.Column="1" Source="{Binding Path=CurrentFrame, Mode=OneWay, NotifyOnTargetUpdated=True}" TargetUpdated="imgView_TargetUpdated" MouseLeftButtonDown="imgView_MouseLeftButtonDown" MouseLeftButtonUp="imgView_MouseLeftButtonUp" />
 			</ScrollViewer>
-			<Button Grid.Column="1" Grid.Row="1" x:Name="btnRight" HorizontalAlignment="Right" Style="{StaticResource NavigationButtonLeft}"  Height="132" Width="105" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" />
-			<Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" x:Name="btnLeft"  Width="105" Height="132" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" SnapsToDevicePixels="False" Style="{StaticResource NavigationButtonRight}" />
+			<Button Grid.Column="1" Grid.Row="1" x:Name="btnRight" HorizontalAlignment="Right" Style="{StaticResource NavigationButtonLeft}"  Height="132" Width="105" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" Command="{Binding Path=NextPage}" />
+			<Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" x:Name="btnLeft"  Width="105" Height="132" VerticalAlignment="Center" Opacity="0" IsHitTestVisible="True" SnapsToDevicePixels="False" Style="{StaticResource NavigationButtonRight}" Command="{Binding Path=PrevPage}" />
 
 			<Border Name="toast" Width="100" Margin="0,0,30,30" VerticalAlignment="Bottom" Background="#FF333333" BorderBrush="#FF909090" BorderThickness="1" Height="25" CornerRadius="5" ClipToBounds="False" SnapsToDevicePixels="True" Opacity="0" HorizontalAlignment="Right">
 				<TextBlock Name="toastText"  Text="Page 1 of #" Foreground="#FF909090" FontSize="14" TextAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" />

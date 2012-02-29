@@ -157,6 +157,7 @@
     <None Include="Resources\Splash.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="TODO.txt" />
     <Resource Include="Resources\Hand.ico" />
     <Content Include="Resources\Libs\x64\7z.dll" />
     <Content Include="Resources\Libs\x86\7z.dll" />
@@ -181,7 +182,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_BuildVersioningStyle="None.None.DeltaBaseYearDayOfYear.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/1/1" BuildVersion_ConfigurationName="Release" />
+      <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2010/1/1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.DeltaBaseYearDayOfYear.Increment" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
