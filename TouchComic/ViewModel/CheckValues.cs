@@ -2,34 +2,39 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
+using JulMar.Windows.Mvvm;
 
 namespace TouchComic.ViewModel
 {
-	public class CheckValues<T> where T : struct, IConvertible
+	public class CheckValues<T> : SimpleViewModel where T : struct, IConvertible
 	{
-		public T Value { get; set; }
+		private bool _IsChecked = false;
+		private T _Value;
+		private string _Text;
 
-		public string Text { get { return Value.ToString(); } }
+		public T Value
+		{
+			get { return _Value; }
+			set
+			{
+				_Value = value;
+				_Text = (value as Enum).ToDescription();
+			}
+		}
 
-		public bool IsChecked { get; set; }
-	}
-
-	public class ExclusiveCheckValues<T> where T : struct, IConvertible
-	{
-		public static T SelectedValue { get; set; }
-
-		public T Value { get; set; }
-
-		public string Text { get { return Value.ToString(); } }
+		public string Text { get { return _Text; } }
 
 		public bool IsChecked
 		{
-			get { return Value.Equals(SelectedValue); }
+			get { return _IsChecked; }
 			set
 			{
-				if (value)
-					SelectedValue = Value;
+				_IsChecked = value;
+				OnPropertyChanged("IsChecked");
 			}
 		}
+
+		public ICommand Command { get; set; }
 	}
 }

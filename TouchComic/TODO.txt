@@ -1,6 +1,7 @@
-﻿Create sub menus for ZoomMode and Resizing:
+﻿Create sub menus for Resizing:
 http://julmar.com/blog/mark/?p=22
 
 Other usefull links:
 http://julmar.com/blog/mark/?p=37
 http://julmar.com/blog/mark/?p=10
+http://blogs.msdn.com/b/avip/archive/2008/10/27/wpf-supporting-command-line-arguments-and-file-extensions.aspx

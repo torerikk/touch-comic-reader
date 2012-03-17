@@ -38,7 +38,9 @@
 							<Setter Property="Header" Value="{Binding Text}" />
 							<Setter Property="IsCheckable" Value="True" />
 							<Setter Property="IsChecked" Value="{Binding IsChecked}" />
-							<Setter Property="Behaviors:MenuItemExtensions.GroupName" Value="ZoomMode" />
+							<Setter Property="Command" Value="{Binding Command}" />
+							<Setter Property="CommandParameter" Value="{Binding Value}" />
+							<!--<Setter Property="Behaviors:MenuItemExtensions.GroupName" Value="ZoomMode" />-->
 						</Style>
 					</MenuItem.ItemContainerStyle>
 				</MenuItem>

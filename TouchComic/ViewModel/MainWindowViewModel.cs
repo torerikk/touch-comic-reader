@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using JulMar.Windows.Mvvm;
@@ -28,6 +29,8 @@ namespace TouchComic.ViewModel
 		public ICommand Close { get; private set; }
 
 		public ICommand FullScreen { get; set; }
+
+		public ICommand SetZoomMode { get; set; }
 
 		public ObservableCollection<CheckValues<ZoomMode>> ZoomModeValues { get; set; }
 
@@ -69,10 +72,11 @@ namespace TouchComic.ViewModel
 			PrevPage = new DelegatingCommand(OnPrevPage, CanPrevPage);
 			Close = new DelegatingCommand(OnClose);
 			FullScreen = new DelegatingCommand(OnFullScreen);
+			//SetZoomMode = new DelegatingCommand<ZoomMode>(OnSetZoomMode);
 			ZoomModeValues = new ObservableCollection<CheckValues<ZoomMode>>();
 			foreach (object t in Enum.GetValues(typeof(ZoomMode)))
 			{
-				ZoomModeValues.Add(new CheckValues<ZoomMode> { Value = (ZoomMode)t });
+				ZoomModeValues.Add(new CheckValues<ZoomMode> { Value = (ZoomMode)t, Command = new DelegatingCommand<ZoomMode>(OnSetZoomMode) });
 			}
 			ZoomModeValues[0].IsChecked = true;
 		}
@@ -114,6 +118,17 @@ namespace TouchComic.ViewModel
 		private bool CanPrevPage()
 		{
 			return Comic.HasPreviousPage;
+		}
+
+		private void OnSetZoomMode(ZoomMode newMode)
+		{
+			this.CurrentZoomMode = newMode;
+			var uncheckedValues = ZoomModeValues.Where(z => z.Value != newMode && z.IsChecked);
+			foreach (var item in uncheckedValues)
+			{
+				item.IsChecked = false;
+			}
+			OnPropertyChanged("CurrentFrame");
 		}
 
 		#endregion Commands
