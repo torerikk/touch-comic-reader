@@ -1,19 +1,35 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using JulMar.Windows.Mvvm;
 using Microsoft.Win32;
 using TouchComic.DataAccess;
 using TouchComic.Model;
 
 namespace TouchComic.ViewModel
 {
-	public class MainWindowViewModel : WorkspaceViewModel
+	public class MainWindowViewModel : JulMar.Windows.Mvvm.ViewModel
 	{
 		private ComicBookRepository cbRepos = null;
 		private ComicBook _Comic = new ComicBook();
 		private ComicBookPage _currentPage;
 		private ZoomMode _currentZoomMode = ZoomMode.Fit;
 		private bool _showToolbar = true;
+
+		public ICommand OpenFile { get; private set; }
+
+		public ICommand OpenList { get; private set; }
+
+		public ICommand NextPage { get; private set; }
+
+		public ICommand PrevPage { get; private set; }
+
+		public ICommand Close { get; private set; }
+
+		public ICommand FullScreen { get; set; }
+
+		public ObservableCollection<CheckValues<ZoomMode>> ZoomModeValues { get; set; }
 
 		internal ComicBook Comic
 		{
@@ -45,65 +61,99 @@ namespace TouchComic.ViewModel
 			}
 		}
 
+		public MainWindowViewModel()
+		{
+			OpenFile = new DelegatingCommand(OnOpenFile);
+			OpenList = new DelegatingCommand(OnOpenList, CanOpenList);
+			NextPage = new DelegatingCommand(OnNextPage, CanNextPage);
+			PrevPage = new DelegatingCommand(OnPrevPage, CanPrevPage);
+			Close = new DelegatingCommand(OnClose);
+			FullScreen = new DelegatingCommand(OnFullScreen);
+			ZoomModeValues = new ObservableCollection<CheckValues<ZoomMode>>();
+			foreach (object t in Enum.GetValues(typeof(ZoomMode)))
+			{
+				ZoomModeValues.Add(new CheckValues<ZoomMode> { Value = (ZoomMode)t });
+			}
+			ZoomModeValues[0].IsChecked = true;
+		}
+
 		#region Commands
-		void OpenFileExecute()
+
+		private void OnOpenFile()
 		{
 			IO.File.OpenComic(OpenComic_FileOk);
 		}
-		public ICommand OpenFile
-		{
-			get { return new RelayCommand(OpenFileExecute); }
-		}
 
-		void OpenListExecute()
+		private void OnOpenList()
 		{
 			throw new NotImplementedException();
 		}
-		bool CanOpenListExecute()
+
+		private bool CanOpenList()
 		{
 			return false;
 		}
-		public ICommand OpenList
-		{
-			get { return new RelayCommand(OpenListExecute, CanOpenListExecute); }
-		}
 
-		void NextPageExecute()
+		private void OnNextPage()
 		{
 			_currentPage = Comic.NextPage();
-			RaisePropertyChanged("CurrentFrame");
+			OnPropertyChanged("CurrentFrame");
 		}
-		bool CanNextPageExecute()
+
+		private bool CanNextPage()
 		{
 			return Comic.HasNextPage;
 		}
-		public ICommand NextPage
-		{
-			get { return new RelayCommand(NextPageExecute, CanNextPageExecute); }
-		}
 
-		void PrevPageExecute()
+		private void OnPrevPage()
 		{
 			_currentPage = Comic.PreviousPage();
-			RaisePropertyChanged("CurrentFrame");
+			OnPropertyChanged("CurrentFrame");
 		}
-		bool CanPrevPageExecute()
+
+		private bool CanPrevPage()
 		{
 			return Comic.HasPreviousPage;
 		}
-		public ICommand PrevPage
-		{
-			get { return new RelayCommand(PrevPageExecute, CanPrevPageExecute); }
-		}
-		#endregion
 
-		void OpenComic_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+		#endregion Commands
+
+		#region RequestFullScreen [event]
+
+		public event EventHandler RequestFullScreen;
+
+		private void OnFullScreen()
+		{
+			var handler = RequestFullScreen;
+			if (handler != null)
+				handler(this, EventArgs.Empty);
+		}
+
+		#endregion RequestFullScreen [event]
+
+		#region RequestClose [event]
+
+		/// <summary>
+		/// Raised when this workspace should be removed from the UI.
+		/// </summary>
+		public event EventHandler RequestClose;
+
+		private void OnClose()
+		{
+			var handler = RequestClose;
+			if (handler != null)
+				handler(this, EventArgs.Empty);
+		}
+
+		#endregion RequestClose [event]
+
+		private void OpenComic_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
 		{
 			var dlg = (OpenFileDialog)sender;
 			cbRepos = new DataAccess.ComicBookRepository(dlg.FileName);
 			Comic = cbRepos._comicbook;
 			_currentPage = Comic.Page(0);
-			RaisePropertyChanged("CurrentFrame");
+			OnPropertyChanged("CurrentFrame");
 		}
 	}
 }

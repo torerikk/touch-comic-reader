@@ -46,6 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Julmar.Core">
+      <HintPath>..\packages\MVVMHelpers.4.9.0\lib\4.0\Julmar.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Julmar.Wpf.Behaviors">
+      <HintPath>..\packages\MVVMHelpers.4.9.0\lib\4.0\Julmar.Wpf.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="JulMar.Wpf.Helpers">
+      <HintPath>..\packages\MVVMHelpers.4.9.0\lib\4.0\JulMar.Wpf.Helpers.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -53,6 +62,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity">
+      <HintPath>..\packages\MVVMHelpers.4.9.0\lib\4.0\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -102,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Behaviors\MenuBehavior.cs" />
     <Compile Include="DataAccess\ComicBookRepository.cs" />
     <Compile Include="DataAccess\ComicInfoRepository.cs" />
     <Compile Include="Enums.cs" />
@@ -109,14 +122,11 @@
     <Compile Include="Model\ComicBook.cs" />
     <Compile Include="Model\ComicBookPage.cs" />
     <Compile Include="Model\ComicInfo.cs" />
-    <Compile Include="ObservableObject.cs" />
-    <Compile Include="PropertySupport.cs" />
-    <Compile Include="RelayCommand.cs" />
     <Compile Include="Resources\ComicInfo.cs">
       <DependentUpon>ComicInfo.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CheckValues.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
-    <Compile Include="ViewModel\WorkspaceViewModel.cs" />
     <Compile Include="Windows\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>
@@ -182,7 +192,7 @@
   </Target>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_ConfigurationName="Release" BuildVersion_StartDate="2010/1/1" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.DeltaBaseYearDayOfYear.Increment" />
+      <UserProperties BuildVersion_BuildVersioningStyle="None.None.DeltaBaseYearDayOfYear.Increment" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_StartDate="2010/1/1" BuildVersion_ConfigurationName="Release" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

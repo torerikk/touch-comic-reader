@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace TouchComic.Model
 {
-	class ComicBook : ObservableObject, IDataErrorInfo
+	internal class ComicBook : JulMar.Windows.Mvvm.ViewModel, IDataErrorInfo
 	{
 		public enum Direction
 		{
@@ -14,9 +14,11 @@ namespace TouchComic.Model
 		}
 
 		public ComicInfo MetaData { get; set; }
+
 		public bool HasMetaData { get; set; }
 
 		#region State Properties
+
 		private ObservableCollection<ComicBookPage> _pages = new ObservableCollection<ComicBookPage>();
 
 		/// <summary>
@@ -82,9 +84,10 @@ namespace TouchComic.Model
 		/// </summary>
 		public Direction LastNavigate { get; private set; }
 
-		#endregion
+		#endregion State Properties
 
 		#region Navigation Methods
+
 		public ComicBookPage Page(int index)
 		{
 			CurrentPage = index;
@@ -101,7 +104,6 @@ namespace TouchComic.Model
 			LastNavigate = Direction.Next;
 			return (Pages[CurrentPage]);
 		}
-
 
 		public ComicBookPage NextPage()
 		{
@@ -135,10 +137,9 @@ namespace TouchComic.Model
 			}
 			LastNavigate = Direction.Previous;
 			return (Pages[CurrentPage]);
-
 		}
 
-		#endregion
+		#endregion Navigation Methods
 
 		#region IDataErrorInfo Members
 
@@ -149,19 +150,17 @@ namespace TouchComic.Model
 			get { return GetValidationError(propertyName); }
 		}
 
-		#endregion
+		#endregion IDataErrorInfo Members
 
 		#region Validation
 
-		static string GetValidationError(string propertyName)
+		private static string GetValidationError(string propertyName)
 		{
 			string error = null;
 
 			return error;
-
 		}
 
-		#endregion
-
+		#endregion Validation
 	}
 }

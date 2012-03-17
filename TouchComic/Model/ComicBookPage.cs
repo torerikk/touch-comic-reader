@@ -3,7 +3,7 @@ using System.Windows.Media.Imaging;
 
 namespace TouchComic.Model
 {
-	class ComicBookPage : ObservableObject
+	internal class ComicBookPage : JulMar.Windows.Mvvm.ViewModel
 	{
 		/// <summary>
 		/// Gets a bool that describes if this page has a bitmap in memory or not.
@@ -38,7 +38,6 @@ namespace TouchComic.Model
 		{
 			Frame = BitmapFrame.Create(new Uri(Path));
 			IsLoaded = true;
-
 		}
 	}
 }

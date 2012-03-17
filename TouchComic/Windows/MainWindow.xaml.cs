@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using JulMar.Windows.Mvvm;
 using TouchComic.ViewModel;
 
 namespace TouchComic.Windows
@@ -13,35 +14,23 @@ namespace TouchComic.Windows
 		private WindowState wndStateFullScrn;
 		private Point mouseStart;
 
+		//public ICommand FullScreen { get; private set; }
+
 		public MainWindow()
 		{
-
 			InitializeComponent();
 			var viewModel = DataContext as MainWindowViewModel;
 			viewModel.RequestClose += delegate
 			{
 				this.Close();
 			};
+			viewModel.RequestFullScreen += delegate
+			{
+				this.ToggleFullscreen();
+			};
+
 			mniFile.Focus();
 		}
-
-		#region Commands
-		void FullScreenExecute()
-		{
-			ToggleFullscreen();
-		}
-
-		bool FullScreenFileExecute()
-		{
-			return true;
-		}
-
-		public ICommand FullScreen
-		{
-			get { return new RelayCommand(FullScreenExecute, FullScreenFileExecute); }
-		}
-
-		#endregion
 
 		private void Always_CanExecute(object sender, CanExecuteRoutedEventArgs e)
 		{
@@ -56,7 +45,7 @@ namespace TouchComic.Windows
 			wnd.ShowDialog();
 		}
 
-		void imgView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		private void imgView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			Point mouseEnd = e.GetPosition(imgView);
 			double movementX = (mouseStart.X - mouseEnd.X);
@@ -75,10 +64,9 @@ namespace TouchComic.Windows
 			}
 		}
 
-		void imgView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		private void imgView_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
 		{
 			mouseStart = e.GetPosition(imgView);
-
 		}
 
 		private void ToggleFullscreen()
@@ -90,7 +78,7 @@ namespace TouchComic.Windows
 				this.Topmost = false;
 				this.ResizeMode = ResizeMode.CanResize;
 				this.mnuMain.Visibility = Visibility.Visible;
-				// If the toolbar is supposed to be visible, make it so.. 
+				// If the toolbar is supposed to be visible, make it so..
 				if (mniViewToolbar.IsChecked == true)
 				{
 					tlbMain.Visibility = System.Windows.Visibility.Visible;
@@ -136,7 +124,6 @@ namespace TouchComic.Windows
 				ResizeImage(model.CurrentZoomMode, model.CurrentFrame.PixelHeight, model.CurrentFrame.PixelWidth);
 				toastText.Text = string.Format("Page {0} of {1}", model.Comic.CurrentPage + 1, model.Comic.TotalPages);
 				((Storyboard)FindResource("toastfade")).Begin(toast);
-
 			}
 		}
 
@@ -191,7 +178,6 @@ namespace TouchComic.Windows
 				default:
 					break;
 			}
-
 		}
 
 		private void scvScroll_LayoutUpdated(object sender, System.EventArgs e)
@@ -207,7 +193,7 @@ namespace TouchComic.Windows
 		//{
 		//    if (scvScroll.IsMouseOver)
 		//    {
-		//        // Save starting point, used later when determining 
+		//        // Save starting point, used later when determining
 		//        //how much to scroll.
 		//        scrollStartPoint = e.GetPosition(this);
 		//        scrollStartOffset.X = scvScroll.HorizontalOffset;
@@ -256,8 +242,6 @@ namespace TouchComic.Windows
 		//    base.OnPreviewMouseMove(e);
 		//}
 
-
-
 		//protected override void OnPreviewMouseUp(
 		//    MouseButtonEventArgs e)
 		//{
@@ -270,6 +254,5 @@ namespace TouchComic.Windows
 		//    base.OnPreviewMouseUp(e);
 		//}
 		// End scrolling
-
 	}
 }
