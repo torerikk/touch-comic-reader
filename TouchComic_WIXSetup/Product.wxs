@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="TouchComic" Language="1033" Version="!(bind.FileVersion.TouchComic.exe)" Manufacturer="beldin.net" UpgradeCode="2d7caeb7-4905-4c12-a220-c33191c14570">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+		<Feature Id="ProductFeature" Title="TouchComic" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+		</Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="TouchComic" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+			<Component Id="TouchComic.exe" Guid="{F258A7CA-27A5-4BE2-89A8-D4BB9338C740}">
+				<File Id="TouchComic.exe" Name="$(var.TouchComic.TargetFileName)" Source="$(var.TouchComic.TargetPath)" KeyPath="yes" Checksum="yes" />
+			</Component>
+			<Component Id="Julmar.Core.dll" Guid="{6922E5CB-3028-4446-9293-37F0F5CE3C9B}">
+				<File Id="Julmar.Core.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\Julmar.Core.dll" />
+			</Component>
+			<Component Id="JulMar.Wpf.Helpers.dll" Guid="{0FDBFC0E-EEB4-4DD1-9690-6EAE0EBF6F67}">
+				<File Id="JulMar.Wpf.Helpers.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\JulMar.Wpf.Helpers.dll" />
+			</Component>
+			<Component Id="_7z.dll" Guid="{02F68473-F7E8-474F-AAAF-9094108B93B9}">
+				<File Id="_7z.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\7z.dll" />
+			</Component>
+			<Component Id="Julmar.Wpf.Behaviors.dll" Guid="{9DB922CC-784C-4C76-82D2-51B3359F1415}">
+				<File Id="Julmar.Wpf.Behaviors.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\Julmar.Wpf.Behaviors.dll" />
+			</Component>
+			<Component Id="SevenZipSharp.dll" Guid="{6FF8D224-86C6-48C1-BC1C-55ADE790EB63}">
+				<File Id="SevenZipSharp.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\SevenZipSharp.dll" />
+			</Component>
+			<Component Id="System.Windows.Interactivity.dll" Guid="{017C9539-7C0A-418C-90E3-EFC83B1ACCE1}">
+				<File Id="System.Windows.Interactivity.dll" KeyPath="yes" Source="$(var.TouchComic.TargetDir)\System.Windows.Interactivity.dll" />
+			</Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

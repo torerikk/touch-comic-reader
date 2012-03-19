@@ -2,6 +2,10 @@ syntax: regexp
 TouchComic/bin/*
 TouchComic/obj/*
 packages/*
+TouchComic_Bootstrapper/bin/*
+TouchComic_Bootstrapper/obj/*
+TouchComic_WIXSetup/bin/*
+TouchComic_WIXSetup/obj/*
 syntax: glob
 *.user
 *.suo
