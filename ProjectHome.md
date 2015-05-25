@@ -1,0 +1,1 @@
+**Touch Comic Reader** is a simple WPF 4.0b2 comic book reader written in C#. While the UI is meant to target tablet PCs, **TCR** is also usable on regular PCs. When the first beta is released it will handle CBR (RAR), CBZ (ZIP) and CB7 (7-Zip) files.
